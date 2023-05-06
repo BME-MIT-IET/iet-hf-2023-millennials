@@ -31,7 +31,7 @@ public class VirologistFieldPanel extends JPanel {
 		field_type_icon = new JLabel("");
 		field_type_icon.setIcon(new ImageIcon(""));
 		field_type_icon.setBounds(10, 11, 124, 112);
-        field_type_icon.setIcon(new ImageIcon("images/virologist_icon_field.png"));
+        field_type_icon.setIcon(new ImageIcon(getClass().getResource("images/virologist_icon_field.png")));
 		add(field_type_icon);
 
 		field_select_button = new JButton("");

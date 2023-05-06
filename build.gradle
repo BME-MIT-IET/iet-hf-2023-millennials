@@ -1,0 +1,78 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.1'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.0.1',
+            'org.mockito:mockito-core:2.+',
+            'org.junit.jupiter:junit-jupiter-engine:5.0.1',
+            'org.junit.vintage:junit-vintage-engine:4.12.1',
+            'org.junit.platform:junit-platform-launcher:1.0.1',
+            'org.junit.platform:junit-platform-runner:1.0.1',
+            'junit:junit:4.13.1'
+    )
+
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['code/src/main', 'code/src/subjects', 'code/src/observers', 'code/src/UI']
+        }
+        resources {
+            srcDirs = ['code/src/resources']
+        }
+    }
+
+    test {
+        java {
+            srcDirs = ['code/src/test']
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "main.Main"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
+
+test {
+    include "**/Test*.java"
+    include "**/*Test.java"
+
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    reports {
+        junitXml {
+            outputPerTestCase = true // defaults to false
+            mergeReruns = true // defaults to false
+        }
+    }
+}
+
+
+

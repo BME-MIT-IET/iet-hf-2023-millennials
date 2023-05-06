@@ -13,7 +13,7 @@ public class MainFrame extends JFrame implements Observer {
     public MainFrame() {
         setResizable(false);
         setTitle("A világtalan virológusok világa\r\n\r\n");
-        setIconImage(Toolkit.getDefaultToolkit().getImage("images/main_icon.png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/main_icon.png")));
         setBounds(100, 100, 1100, 1100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -49,7 +49,7 @@ public class MainFrame extends JFrame implements Observer {
 
 		JLabel map_label = new JLabel("");
 		map_label.setFocusable(false);
-		map_label.setIcon(new ImageIcon("images/map.png"));
+		map_label.setIcon(new ImageIcon(getClass().getResource("images/map.png")));
 		map_label.setBounds(299, 0, 795, 945);
 		getContentPane().add(map_label);
 
