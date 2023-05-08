@@ -1,4 +1,4 @@
-package test.Defence;
+package test.Poison;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -13,40 +13,40 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import main.DefenceAgent;
-import main.DefenceGenetic;
 import main.PoisonAgent;
 import subjects.Agent;
-import subjects.Genetics;
 import subjects.Virologist;
 
-public class DefenceAgentTest {
-    private DefenceAgent defAgent;
+public class PoisonAgentTest {
+    private PoisonAgent poisAgent;
     private ArrayList<Agent> agents;
-    
+
     @Before
-    public void initialize(){
-        Genetics defgen = new DefenceGenetic();
-        defAgent = new DefenceAgent(defgen, 4);
+    public void initialize() {
+        poisAgent = new PoisonAgent(null, 7);
         agents = new ArrayList<>();
         agents.add(new PoisonAgent(null, 0));
-        agents.add(new DefenceAgent(null, 0));
-        agents.add(new DefenceAgent(null, 0));
-        agents.add(new DefenceAgent(null, 0));
-        agents.add(defAgent);
+        agents.add(new PoisonAgent(null, 0));
+        agents.add(new PoisonAgent(null, 0));
+        agents.add(new PoisonAgent(null, 0));
+        agents.add(new PoisonAgent(null, 0));
+        agents.add(new PoisonAgent(null, 0));
+        agents.add(new PoisonAgent(null, 0));
     }
 
     @Test
     public void startEffectTest() {
         Virologist virologist = mock(Virologist.class);
-        defAgent.startEffect(virologist);
-        verify(virologist, times(1)).setEffectFlag(3);
+        poisAgent.startEffect(virologist);
+        verify(virologist, times(1)).setEffectFlag(1);
     }
 
     @Test
     public void endEffectTest() {
         Virologist virologist = mock(Virologist.class);
-        defAgent.endEffect(virologist);
+        poisAgent.endEffect(virologist);
+        verify(virologist, times(1)).getEffectFlag();
+        verify(virologist, times(1)).checkPoisonEffects();
         verify(virologist, times(1)).setEffectFlag(0);
     }
 
@@ -55,7 +55,7 @@ public class DefenceAgentTest {
         Virologist target = mock(Virologist.class);
         Virologist sender = mock(Virologist.class);
         
-        DefenceAgent mock = Mockito.spy(defAgent);
+        PoisonAgent mock = Mockito.spy(poisAgent);
 
         mock.infect(target, sender);
         verify(target, times(1)).addEffect(mock, sender);
@@ -64,18 +64,33 @@ public class DefenceAgentTest {
 
     @Test
     public void isSameAndToStringTest() {
-        assertTrue(defAgent.isSame("DefenceAgent"));
-        assertTrue(defAgent.toString().equals("DefenceAgent"));
+        assertTrue(poisAgent.isSame("PoisonAgent"));
+        assertTrue(poisAgent.toString().equals("PoisonAgent"));
     }
+
+    public void testTickBase(PoisonAgent mock) {
+        Iterator<Agent> iter = agents.iterator();
+        Virologist virologist = mock(Virologist.class);
+        assertEquals(3, agents.size());
+        int lifetime = mock.getLivetime();
+        for (int i = 0; i < lifetime; i++) {
+            assertEquals(lifetime - i, mock.getLivetime());
+            iter.next();
+            mock.tick(virologist, iter);
+            assertEquals(lifetime - i - 1, mock.getLivetime());
+        }
+        assertEquals(0, mock.getLivetime());
+        assertEquals(2, agents.size());
+    } 
 
     @Test
     public void tickTest() {
         Iterator<Agent> iter = agents.iterator();
         Virologist virologist = mock(Virologist.class);
 
-        DefenceAgent mock = Mockito.spy(defAgent);
+        PoisonAgent mock = Mockito.spy(poisAgent);
 
-        assertEquals(5, agents.size());
+        assertEquals(7, agents.size());
 
         int lifetime = mock.getLivetime();
         for (int i = 0; i < lifetime; i++) {
@@ -86,7 +101,7 @@ public class DefenceAgentTest {
         }
         verify(mock, times(lifetime)).notifyObservers();
         assertEquals(0, mock.getLivetime());
-        assertEquals(4, agents.size());
+        assertEquals(6, agents.size());
     }
 
     @Test
@@ -94,10 +109,10 @@ public class DefenceAgentTest {
         Iterator<Agent> iter = agents.iterator();
         Virologist virologist = mock(Virologist.class);
 
-        DefenceAgent mock = Mockito.spy(defAgent);
+        PoisonAgent mock = Mockito.spy(poisAgent);
         
         mock.startEffect(virologist);
-
+        assertEquals(7, agents.size());
         int lifetime = mock.getLivetime();
         for (int i = 0; i < lifetime; i++) {
             assertEquals(lifetime - i, mock.getLivetime());
@@ -105,10 +120,9 @@ public class DefenceAgentTest {
             mock.tick(virologist, iter);
             assertEquals(lifetime - i - 1, mock.getLivetime());
         }
-
         verify(virologist, times(1)).setEffectFlag(0);
         verify(mock, times(lifetime - 1)).notifyObservers();
         assertEquals(0, mock.getLivetime());
-        assertEquals(4, agents.size());
+        assertEquals(6, agents.size());
     }
 }

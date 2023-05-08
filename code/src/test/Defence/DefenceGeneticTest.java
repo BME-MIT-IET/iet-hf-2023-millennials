@@ -38,7 +38,7 @@ public class DefenceGeneticTest {
     @Test
     public void isSameTest() {
         DefenceGenetic newDefGen = new DefenceGenetic(2, 3);
-        boolean isSame = newDefGen.isSame(newDefGen);
+        boolean isSame = defGen.isSame(newDefGen);
         assertTrue(isSame);
     }
 
