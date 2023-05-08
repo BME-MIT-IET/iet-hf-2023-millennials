@@ -25,7 +25,9 @@ dependencies {
             'org.junit.platform:junit-platform-runner:1.0.1',
             'junit:junit:4.13.1'
     )
-
+    implementation(
+        'junit:junit:4.13.1'
+    )
 }
 
 sourceSets {
