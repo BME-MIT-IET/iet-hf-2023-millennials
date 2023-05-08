@@ -48,6 +48,7 @@ sourceSets {
 }
 
 jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes "Main-Class": "main.Main"
     }
