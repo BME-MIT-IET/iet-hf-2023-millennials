@@ -31,16 +31,16 @@ dependencies {
 sourceSets {
     main {
         java {
-            srcDirs = ['code/src/main', 'code/src/subjects', 'code/src/observers', 'code/src/UI']
+            srcDirs = ['code/src']
         }
         resources {
-            srcDirs = ['code/src/resources']
+            srcDirs = ['code/src']
         }
     }
 
     test {
         java {
-            srcDirs = ['code/src/test']
+            srcDirs = ['code/src']
         }
     }
 }
