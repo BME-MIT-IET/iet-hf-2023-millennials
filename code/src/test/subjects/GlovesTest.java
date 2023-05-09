@@ -1,6 +1,5 @@
 package test.subjects;
 
-import main.Cape;
 import main.Gloves;
 import subjects.Virologist;
 

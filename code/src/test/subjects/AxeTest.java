@@ -1,11 +1,12 @@
 package test.subjects;
 
 import main.Axe;
-import main.BearAgent;
-import subjects.Game;
 import subjects.Virologist;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,31 +15,27 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class AxeTest {
-    private Game game;
     private Axe axe;
-    private BearAgent bearAgent;
-    private Virologist virologist;
+    private Virologist virologist1;
+    private Virologist virologist2;
     @Before
     public void initialize() {
-        game = new Game();
         axe = new Axe();
-        bearAgent = new BearAgent();
-        virologist = new Virologist("Tester", 3, 3, null);
-        game.addPlayer(virologist);
+        virologist1 = mock(Virologist.class);
+        virologist2 = mock(Virologist.class);
     }
 
     @Test
     public void testUseFirstTime(){
-        bearAgent.startEffect(virologist);
-        axe.startEffect(virologist);
-        assertEquals(null, game.getPlayers());
+        axe.use(virologist1);
+        verify(virologist1, times(1)).axeHit();
     }
 
     @Test
     public void testUseMultipleTime(){
-        bearAgent.startEffect(virologist);
-        axe.startEffect(virologist);
-        assertEquals(null, game.getPlayers());
+        axe.use(virologist1);
+        axe.use(virologist2);
+        verify(virologist1, times(1)).axeHit();
     }
 
     @Test
