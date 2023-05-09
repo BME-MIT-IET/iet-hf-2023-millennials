@@ -1,6 +1,10 @@
 package test.subjects;
 
 import main.Cape;
+import subjects.Virologist;
+
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,14 +12,31 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class CapeTest {
-    private Cape testCape;
+    private Cape cape;
+    private Virologist virologist;
     @Before
     public void initialize() {
-        testCape = new Cape();
+        cape = new Cape();
+        virologist = new Virologist("Tester", 3, 3, null);
+    }
+
+    @Test
+    public void testStartEffect(){
+        double defRate = virologist.getDefenseRating();
+        cape.startEffect(virologist);
+        assertEquals(defRate * 0.177, virologist.getDefenseRating(), 0.1);
+    }
+
+    @Test
+    public void testEndEffect(){
+        double defRate = virologist.getDefenseRating();
+        cape.endEffect(virologist);
+        assertEquals(defRate / 0.177, virologist.getDefenseRating(), 0.1);
     }
 
     @Test
     public void testToString() {
-        assert testCape.toString().equals("aape");
+        String capeName = "Cape";
+        assertEquals(capeName, cape.toString());
     }
 }
