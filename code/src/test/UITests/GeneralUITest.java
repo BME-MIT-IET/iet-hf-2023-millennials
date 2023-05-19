@@ -18,7 +18,7 @@ public class GeneralUITest extends TestCase{
     }
 
     @Test
-    public void testMenuBar() {
+    public void testMenuBar() throws Exception{
         assertNotNull(menu);
         assertEquals(3,menu.getItemCount());
         assertEquals("New Virologist", menu.getItem(0).getText());
