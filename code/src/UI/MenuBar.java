@@ -13,18 +13,23 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class MenuBar extends JMenuBar {
+
+	private JMenu mnNewMenu = new JMenu("Menu");
+    private NewVirologistDialog newVirologistDialog;
+    private boolean isExitCalled = false;
+	private boolean isTest = false;
+
     public MenuBar() {
         super();
         
-        JMenu mnNewMenu = new JMenu("Menu");
 		mnNewMenu.setForeground(new Color(51, 0, 153));
 		mnNewMenu.setFont(new Font("SansSerif", Font.BOLD, 15));
 		add(mnNewMenu);
 
 		class NewVirologistActionListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				new NewVirologistDialog();
-			}
+				newVirologistDialog = new NewVirologistDialog();
+            }
 		}
 
 		class StartActionListener implements ActionListener {
@@ -35,7 +40,10 @@ public class MenuBar extends JMenuBar {
 
 		class ExitActionListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				if(isTest)
+					isExitCalled = true;
+				else
+					System.exit(0);
 			}
 		}
 
@@ -56,5 +64,17 @@ public class MenuBar extends JMenuBar {
 		mntmExit.setFont(new Font("SansSerif", Font.BOLD, 15));
 		mnNewMenu.add(mntmExit);
 		mntmExit.addActionListener(new ExitActionListener());
+    }
+	public void setTest(boolean isTest) {
+		this.isTest = isTest;
+	}
+	public JMenu getMnNewMenu() {
+        return mnNewMenu;
+    }
+    public NewVirologistDialog getNewVirologistDialog() {
+        return newVirologistDialog;
+    }
+    public boolean isExitCalled() {
+        return isExitCalled;
     }
 }

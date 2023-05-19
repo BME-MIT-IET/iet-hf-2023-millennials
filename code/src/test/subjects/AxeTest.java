@@ -1,4 +1,4 @@
-package test.Subjects;
+package test.subjects;
 
 import main.Axe;
 import subjects.Virologist;
