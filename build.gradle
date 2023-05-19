@@ -65,6 +65,7 @@ jar {
 test {
     include "**/Test*.java"
     include "**/*Test.java"
+    systemProperty "java.awt.headless", "true"
 
     useJUnitPlatform()
     testLogging {
