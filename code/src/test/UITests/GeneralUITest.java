@@ -12,6 +12,7 @@ public class GeneralUITest extends TestCase{
 
     @Before
     public void setUp() {
+        System.setProperty("java.awt.headless", "true");
         UIMain app = new UIMain();
         app.initialize();
         menu = app.getMainFrame().getUIMenuBar().getMnNewMenu();
