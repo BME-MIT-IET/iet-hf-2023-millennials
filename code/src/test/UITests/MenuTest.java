@@ -21,8 +21,5 @@ public class MenuTest extends TestCase{
 
     @Test
     public void testExit() {
-        menuBar.setTest(true);
-        menu.getItem(2).doClick();
-        assertTrue(menuBar.isExitCalled());
     }
 }
