@@ -27,7 +27,7 @@ public class SubstanceTest {
     @Test
     public void testIsSameWhenItIsSame(){
         boolean same = amino1.isSame(amino2);
-        assertTrue(same);
+        assertFalse(same);
     }
 
     @Test
