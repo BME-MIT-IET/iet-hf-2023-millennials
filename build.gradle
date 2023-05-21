@@ -24,6 +24,7 @@ dependencies {
             'org.junit.platform:junit-platform-launcher:1.0.1',
             'org.junit.platform:junit-platform-runner:1.0.1',
             'junit:junit:4.13.1',
+            'org.junit.jupiter:junit-jupiter-api',
             'org.assertj:assertj-swing:3.9.2'
     )
     implementation(
@@ -65,7 +66,6 @@ jar {
 test {
     include "**/Test*.java"
     include "**/*Test.java"
-    systemProperty "java.awt.headless", "true"
 
     useJUnitPlatform()
     testLogging {
@@ -79,6 +79,7 @@ test {
         }
     }
 }
+
 
 
 
