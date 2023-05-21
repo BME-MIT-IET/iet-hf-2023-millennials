@@ -78,6 +78,7 @@ test {
             mergeReruns = true // defaults to false
         }
     }
+    systemProperty 'java.awt.headless', 'true'
 }
 
 
