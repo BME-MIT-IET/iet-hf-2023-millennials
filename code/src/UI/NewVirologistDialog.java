@@ -33,6 +33,7 @@ public class NewVirologistDialog extends JDialog {
         panel.add(nameField);
 
         okButton = new JButton("OK");
+        okButton.setName("okButton");
         okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         okButton.addActionListener(new OkButtonActionListener(nameField));
         panel.add(okButton);
@@ -66,7 +67,6 @@ public class NewVirologistDialog extends JDialog {
         this.nameField.setText(text);
     }
     public JButton getOkButton() {
-        okButton.doClick();
         return okButton;
     }
 }
