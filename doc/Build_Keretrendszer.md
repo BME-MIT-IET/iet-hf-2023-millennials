@@ -1,1 +1,10 @@
-A build keretrendszer legenerálása után több probléma is adódott, de mivel nem kifejezett hibák voltak error üzenettel, nem volt egyszerű megtalálni, hogy lehet a hiba. Első gond a rossz sourseSets-ek megadása volt, mivel egzakt meg lett adva több útvonal, de elég volt a gradle-nek a code/src-t megadni, a többit magától is megtalálta. A következő a duplicateStrategy kikapcsolása volt, mivel a kód build közben fennakadt duplikációkon. A végső gond az volt, hogy a tesztek valós eredményétől függetlenül, a build minden tesztre azt mondta, hogy sikeresen lefut. Ennek a megoldása az implementation-ök megadásával valósult meg, nem volt elég a testImplementation a gradle-nek.
+# Build keretrendszer
+
+## Simon Borbála
+
+---
+
+A build keretrendszer legenerálása után több probléma is adódott, de mivel nem kifejezett hibák voltak error üzenettel, nem volt egyszerű megtalálni, hogy hol lehet a hiba.
+- Első gond a rossz sourseSets-ek megadása volt, mivel egzakt meg lett adva több útvonal, de elég volt a gradle-nek a code/src-t megadni, a többit magától is megtalálta.
+- A következő a duplicateStrategy kikapcsolása volt, mivel a kód build közben fennakadt duplikációkon.
+- A végső gond az volt, hogy a tesztek valós eredményétől függetlenül, a build minden tesztre azt mondta, hogy sikeresen lefut. Ennek a megoldása az implementation-ök megadásával valósult meg, nem volt elég a testImplementation a gradle-nek.
