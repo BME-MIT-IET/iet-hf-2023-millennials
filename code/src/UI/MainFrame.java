@@ -10,10 +10,13 @@ import observers.Observer;
 import subjects.Game;
 
 public class MainFrame extends JFrame implements Observer {
+    private MenuBar menuBar;
     public MainFrame() {
         setResizable(false);
         setTitle("A világtalan virológusok világa\r\n\r\n");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/main_icon.png")));
+        if(getClass().getResource("images/main_icon.png")!=null){
+            setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/main_icon.png")));
+        }
         setBounds(100, 100, 1100, 1100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -44,12 +47,14 @@ public class MainFrame extends JFrame implements Observer {
         Game.attach(map_panel);
         Game.getMap().attach(map_panel);
 
-        MenuBar menuBar = new MenuBar();
+        menuBar = new MenuBar();
 		setJMenuBar(menuBar);
 
 		JLabel map_label = new JLabel("");
 		map_label.setFocusable(false);
-		map_label.setIcon(new ImageIcon(getClass().getResource("images/map.png")));
+        if(getClass().getResource("images/map.png")!=null){
+            map_label.setIcon(new ImageIcon(getClass().getResource("images/map.png")));
+        }
 		map_label.setBounds(299, 0, 795, 945);
 		getContentPane().add(map_label);
 
@@ -59,5 +64,8 @@ public class MainFrame extends JFrame implements Observer {
 
     public void update() {
         //revalidate();
+    }
+    public MenuBar getUIMenuBar() {
+        return menuBar;
     }
 }
