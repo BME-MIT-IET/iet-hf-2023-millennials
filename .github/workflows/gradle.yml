@@ -14,4 +14,6 @@ jobs:
     - name: Install Xvfb
       run: sudo apt-get install xvfb
     - name: Run build with Gradle Wrapper
-      run: xvfb-run ./gradlew build
+      run: |
+        xvfb-run ./gradlew build
+        xvfb-run ./gradlew test
