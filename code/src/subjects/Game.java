@@ -35,7 +35,9 @@ public final class Game {
 		//Map = new Map();
 		//players = new ArrayList<Virologist>();
 		//timer = new Timer();
-		timer.start();
+		if(timer !=null && timer.isAlive()){
+			timer.start();
+		}
 		buildMap();
 		System.out.println("Game has started.");
 	}

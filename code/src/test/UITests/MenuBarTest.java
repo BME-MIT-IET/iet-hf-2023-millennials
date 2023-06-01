@@ -1,19 +1,19 @@
 package test.UITests;
 
-import javax.swing.JMenu;
-import javax.swing.SwingUtilities;
-
-import org.junit.Before;
-import org.junit.Test;
-import UI.MenuBar;
-import junit.framework.TestCase;
-import subjects.Field;
-import subjects.Game;
-
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.JMenu;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import UI.MenuBar;
+import junit.framework.TestCase;
+import subjects.Field;
+import subjects.Game;
 
 public class MenuBarTest extends TestCase{
     private JMenu menu;
@@ -27,6 +27,15 @@ public class MenuBarTest extends TestCase{
         menuBar = app.getMainFrame().getUIMenuBar();
     }
 
+    
+    @Test
+    public void testStart() throws Exception{
+        Game.stopTimer(null);
+        menu.getItem(1).doClick();
+        ArrayList<Field> fields = Game.getMap().getFields();
+        assertEquals(25,fields.size());
+    }
+
     @Test
     public void testMenuBar() throws Exception{
         assertNotNull(menu);
@@ -37,23 +46,13 @@ public class MenuBarTest extends TestCase{
     }
 
     @Test
-    public void testStart() throws Exception{
-        SwingUtilities.invokeLater(() -> menu.getItem(1).doClick());
-        ArrayList<Field> fields = Game.getMap().getFields();
-        assertEquals(25,fields.size());
-    }
-
-    @Test
     public void testNewVirologist() throws Exception{
         if(Game.getMap()==null || Game.getMap().getFields().size()==0){
             ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
             Thread testThread = Thread.currentThread();
             executor.schedule(testThread::interrupt, 2, TimeUnit.SECONDS);
-
-            SwingUtilities.invokeLater(() -> {
-                menu.getItem(1).doClick();
-                menu.getItem(0).doClick();
-            });
+            menu.getItem(1).doClick();
+            menu.getItem(0).doClick();
 
             assertEquals("Név:",menuBar.getNewVirologistDialog().getNameLabel().getText());
             menuBar.getNewVirologistDialog().getNameField().setText("Test");
@@ -95,14 +94,12 @@ public class MenuBarTest extends TestCase{
         }
     }
 
-
-    
-
     @Test
     public void testExit() throws Exception{
         menuBar.setTest(true);
         menu.getItem(2).doClick();
         assertTrue(menuBar.isExitCalled());
     }
+
 }
 
