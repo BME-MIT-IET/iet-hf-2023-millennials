@@ -1,4 +1,4 @@
-name: Build Gradle project
+name: Build and Test Gradle project
 
 on:
   push:
@@ -13,5 +13,7 @@ jobs:
       uses: gradle/gradle-build-action@v2
     - name: Install Xvfb
       run: sudo apt-get install xvfb
-    - name: Run build with Gradle Wrapper
+    - name: Build with Gradle Wrapper
       run: xvfb-run ./gradlew build
+    - name: Test with Gradle Wrapper
+      run: xvfb-run ./gradlew test
